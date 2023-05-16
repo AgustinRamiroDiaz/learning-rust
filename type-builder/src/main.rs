@@ -6,6 +6,10 @@ fn main() {
         .build();
 
     println!("{id}");
+
+    // Won't compile
+    // IDBuilder::new().name("Agustin".to_string()).build();
+    // IDBuilder::new().age(24).age(25);
 }
 
 struct Name(String);

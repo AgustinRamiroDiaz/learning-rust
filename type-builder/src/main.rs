@@ -12,14 +12,14 @@ fn main() {
     // IDBuilder::new().age(24).age(25);
 }
 
-struct Name(String);
-struct NoName;
-
 struct Country(String);
 struct NoCountry;
 
 struct Age(u8);
 struct NoAge;
+
+struct One<T>(T);
+struct No;
 
 struct IDBuilder<N, A, C> {
     name: N,
@@ -27,20 +27,20 @@ struct IDBuilder<N, A, C> {
     country: C,
 }
 
-impl IDBuilder<NoName, NoAge, NoCountry> {
+impl IDBuilder<No, NoAge, NoCountry> {
     fn new() -> Self {
         IDBuilder {
-            name: NoName,
+            name: No,
             age: NoAge,
             country: NoCountry,
         }
     }
 }
 
-impl<A, C> IDBuilder<NoName, A, C> {
-    fn name(self, name: String) -> IDBuilder<Name, A, C> {
+impl<A, C> IDBuilder<No, A, C> {
+    fn name(self, name: String) -> IDBuilder<One<String>, A, C> {
         IDBuilder {
-            name: Name(name),
+            name: One(name),
             age: self.age,
             country: self.country,
         }
@@ -67,7 +67,7 @@ impl<N, A> IDBuilder<N, A, NoCountry> {
     }
 }
 
-impl IDBuilder<Name, Age, Country> {
+impl IDBuilder<One<String>, Age, Country> {
     fn build(self) -> ID {
         ID {
             name: self.name.0,
@@ -87,8 +87,8 @@ impl std::fmt::Display for ID {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "{} with age {} from {}",
-            self.name, self.age, self.country
+            "{} from {} is {} years old",
+            self.name, self.country, self.age
         )
     }
 }

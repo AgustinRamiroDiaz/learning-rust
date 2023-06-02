@@ -1,7 +1,7 @@
 fn main() {
-    let m1 = Mufasa("outer");
+    let _m1 = Mufasa("outer");
     {
-        let m2 = Mufasa("inner");
+        let _m2 = Mufasa("inner");
     }
 }
 

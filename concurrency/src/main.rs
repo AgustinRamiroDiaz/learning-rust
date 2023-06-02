@@ -60,9 +60,7 @@ fn main() {
             let right = forks[(thread_index + 1) % philosophers].clone();
 
             thread::spawn(move || loop {
-                thread::sleep(time::Duration::from_secs(
-                    rand::thread_rng().gen_range(0..5),
-                ));
+                thread::sleep(time::Duration::from_secs_f64(rand::random::<f64>()));
 
                 println!("Philosopher {thread_index} waiting to pick up left");
                 let _left = left.lock().unwrap();

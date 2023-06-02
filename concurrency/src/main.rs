@@ -21,7 +21,7 @@ fn shared_counter() {
             let data = data.clone();
 
             thread::spawn(move || {
-                thread::sleep(time::Duration::from_millis(100));
+                thread::sleep(time::Duration::from_millis(1000));
                 println!("Hi from thread {thread_index}");
                 // The shared state can only be accessed once the lock is held.
                 // Our non-atomic increment is safe because we're the only thread
@@ -34,6 +34,8 @@ fn shared_counter() {
                 // the lock is unlocked here when `data` goes out of scope.
             })
         })
+        .collect::<Vec<_>>() // we collect it here so it's not lazy
+        .into_iter()
         .for_each(|h| h.join().unwrap());
 
     let final_value = *data.lock().unwrap();

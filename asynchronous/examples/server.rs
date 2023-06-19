@@ -22,11 +22,8 @@ async fn process(mut socket: TcpStream) {
     let mut buf = [0; 1000];
     socket.read(&mut buf).await.unwrap();
 
-    println!("A client has sent {}", String::from_utf8_lossy(&buf));
+    println!("A client has sent '{}'", String::from_utf8_lossy(&buf));
 
-    socket
-        .write("HTTP/1.1 200 OK\r\n\r\n".as_bytes())
-        .await
-        .unwrap();
+    socket.write(b"HTTP/1.1 200 OK\r\n\r\n").await.unwrap();
     socket.flush().await.unwrap();
 }

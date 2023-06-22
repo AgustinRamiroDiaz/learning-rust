@@ -10,6 +10,9 @@ fn main() {
     // the Arc is protected with a mutex.
     let data = Arc::new(Mutex::new(0));
 
+    // Try this out
+    // let data = std::rc::Rc::new(Mutex::new(0));
+
     (0..number_of_threads)
         .map(|thread_index| {
             let data = data.clone();

@@ -1,4 +1,4 @@
-fn longer(x: &str, y: &str) -> &str {
+fn longer(x: &String, y: &String) -> &String {
     if x.len() > y.len() {
         x
     } else {
@@ -7,12 +7,12 @@ fn longer(x: &str, y: &str) -> &str {
 }
 
 fn main() {
-    let outer = "outer";
-    let longer_word: &str;
+    let outer = "outer".to_string();
+    let longer_word: &String;
 
     {
-        let inner = "inner";
-        longer_word = longer(outer, inner);
+        let inner = "inner".to_string();
+        longer_word = longer(&outer, &inner);
     }
 
     println!("{}", longer_word);
